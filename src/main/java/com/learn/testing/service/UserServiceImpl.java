@@ -1,20 +1,30 @@
-package com.learn.testing;
+package com.learn.testing.service;
+
+import com.learn.testing.repo.UserRepo;
+import com.learn.testing.model.User;
 
 import java.util.UUID;
 
 public class UserServiceImpl implements UserService {
 
-    UserDatabase userDB;
+    UserRepo userRepo;
 
-    public UserServiceImpl(UserDatabase userDatabase) {
-        this.userDB = userDatabase;
+    // Use dependency injection as it helps in junits to mock the objects
+    public UserServiceImpl(UserRepo userDatabase) {
+        this.userRepo = userDatabase;
     }
 
     @Override
     public String createUser(User user) {
         String userId = UUID.randomUUID().toString();
+        boolean isUserCreated = false;
         System.out.println("Invoking UserServiceImpl createUser for userId : " + userId);
-        userDB.saveUser(userId, user);
+        isUserCreated = userRepo.saveUser(userId, user);
+
+        if (!isUserCreated) {
+            throw new UserServiceException("User already exists and hence not created");
+        }
+
         return userId;
     }
 
@@ -25,25 +35,25 @@ public class UserServiceImpl implements UserService {
         }
 
         System.out.println("Invoking UserServiceImpl updateUser for userId : " + userId);
-        if (null == userDB.getUser(userId)) {
+        if (null == userRepo.getUser(userId)) {
             throw new IllegalArgumentException("User does not exist for userId : " + userId);
         }
-        userDB.updateUser(userId, user);
+        userRepo.updateUser(userId, user);
     }
 
     @Override
     public User getUser(String userId) {
-        return userDB.getUser(userId);
+        return userRepo.getUser(userId);
     }
 
     @Override
     public int getAllUsersCount() {
-        return userDB.getAllUsersCount();
+        return userRepo.getAllUsersCount();
     }
 
     @Override
     public void removeUser(String userId) {
         System.out.println("Invoking UserServiceImpl deleteUser for userId : " + userId);
-        userDB.deleteUser(userId);
+        userRepo.deleteUser(userId);
     }
 }

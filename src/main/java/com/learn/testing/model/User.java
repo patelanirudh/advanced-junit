@@ -1,4 +1,4 @@
-package com.learn.testing;
+package com.learn.testing.model;
 
 import lombok.*;
 

@@ -1,4 +1,6 @@
-package com.learn.testing;
+package com.learn.testing.service;
+
+import com.learn.testing.model.User;
 
 public interface UserService {
 
