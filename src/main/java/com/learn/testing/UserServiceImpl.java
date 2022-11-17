@@ -1,30 +1,20 @@
-package com.learn.testing.service;
-
-import com.learn.testing.repo.UserRepo;
-import com.learn.testing.model.User;
+package com.learn.testing;
 
 import java.util.UUID;
 
 public class UserServiceImpl implements UserService {
 
-    UserRepo userRepo;
+    UserDatabase userDB;
 
-    // Use dependency injection as it helps in junits to mock the objects
-    public UserServiceImpl(UserRepo userDatabase) {
-        this.userRepo = userDatabase;
+    public UserServiceImpl(UserDatabase userDatabase) {
+        this.userDB = userDatabase;
     }
 
     @Override
     public String createUser(User user) {
         String userId = UUID.randomUUID().toString();
-        boolean isUserCreated = false;
         System.out.println("Invoking UserServiceImpl createUser for userId : " + userId);
-        isUserCreated = userRepo.saveUser(userId, user);
-
-        if (!isUserCreated) {
-            throw new UserServiceException("User already exists and hence not created");
-        }
-
+        userDB.saveUser(userId, user);
         return userId;
     }
 
@@ -35,25 +25,25 @@ public class UserServiceImpl implements UserService {
         }
 
         System.out.println("Invoking UserServiceImpl updateUser for userId : " + userId);
-        if (null == userRepo.getUser(userId)) {
+        if (null == userDB.getUser(userId)) {
             throw new IllegalArgumentException("User does not exist for userId : " + userId);
         }
-        userRepo.updateUser(userId, user);
+        userDB.updateUser(userId, user);
     }
 
     @Override
     public User getUser(String userId) {
-        return userRepo.getUser(userId);
+        return userDB.getUser(userId);
     }
 
     @Override
     public int getAllUsersCount() {
-        return userRepo.getAllUsersCount();
+        return userDB.getAllUsersCount();
     }
 
     @Override
     public void removeUser(String userId) {
         System.out.println("Invoking UserServiceImpl deleteUser for userId : " + userId);
-        userRepo.deleteUser(userId);
+        userDB.deleteUser(userId);
     }
 }

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.learn.test</groupId>
-    <artifactId>MockitoTesting</artifactId>
+    <artifactId>DemoTesting</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -24,12 +24,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

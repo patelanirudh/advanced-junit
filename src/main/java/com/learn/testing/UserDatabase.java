@@ -1,13 +1,11 @@
-package com.learn.testing.repo;
+package com.learn.testing;
 
-import com.learn.testing.model.User;
-
-public interface UserRepo {
+public interface UserDatabase {
 
     public void init();
     public void close();
 
-    boolean saveUser(String userId, User user);
+    void saveUser(String userId, User user);
 
     void updateUser(String userId, User user);
 

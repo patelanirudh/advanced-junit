@@ -1,10 +1,9 @@
-package com.learn.testing.repo;
-
-import com.learn.testing.model.User;
+package com.learn.testing;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class UserRepoImpl implements UserRepo {
+public class UserDatabaseImpl implements UserDatabase {
 
     HashMap<String, User> userDataMap;
 
@@ -20,20 +19,14 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public boolean saveUser(String userId, User user) {
-        boolean isUserExists = true;
-
-        if (!userDataMap.containsKey(userId)) {
-            System.out.println("Invoking UserRepo save for userId : " + userId);
-            userDataMap.put(userId, user);
-            isUserExists = false;
-        }
-        return isUserExists;
+    public void saveUser(String userId, User user) {
+        System.out.println("Invoking UserDatabase save for userId : " + userId);
+        userDataMap.put(userId, user);
     }
 
     @Override
     public void updateUser(String userId, User user) {
-        System.out.println("Invoking UserRepo update for userId : " + userId);
+        System.out.println("Invoking UserDatabase update for userId : " + userId);
         userDataMap.put(userId, user);
     }
 
@@ -49,7 +42,7 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void deleteUser(String userId) {
-        System.out.println("Invoking UserRepo delete for userId : " + userId);
+        System.out.println("Invoking UserDatabase delete for userId : " + userId);
         userDataMap.remove(userId);
     }
 }
